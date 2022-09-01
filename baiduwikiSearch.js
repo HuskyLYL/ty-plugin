@@ -90,7 +90,7 @@ export class baidu extends plugin {
       await browser.close();
       return;
     } catch (error) {
-    
+
     }
 
 
@@ -120,24 +120,30 @@ export class baidu extends plugin {
     const page = await browser.newPage();
     await page.goto(oldUrl)
     var newNumber = Number(this.e.message[0].text)
-    var newUrl = await page.$eval('body>.body-wrapper>.content-wrapper>.content>.main-content >ul', (el) => {
-      var ans = '';
-      var newTages = el.getElementsByTagName("a");
-      for (var i = 0; i < newTages.length; i++) {
+    try {
+      var newUrl = await page.$eval('body>.body-wrapper>.content-wrapper>.content>.main-content >ul', (el) => {
+        var ans = '';
+        var newTages = el.getElementsByTagName("a");
+        for (var i = 0; i < newTages.length; i++) {
+          ans += "lyl"
+          ans += el.getElementsByTagName("a")[i].href;
+        }
         ans += "lyl"
-        ans += el.getElementsByTagName("a")[i].href;
-      }
-      ans += "lyl"
 
-      return ans
-    });
-    newUrl = newUrl.split("lyl")[newNumber + 1]
-    await page.goto(newUrl)
-    const botAnswer = await page.$eval('body>.body-wrapper>.content-wrapper>.content>.main-content>.lemma-summary', el => el.innerText);
-    await this.reply(botAnswer);
-    await browser.close();
-    await this.finish("delAgain");
-    return;
+        return ans
+      });
+      newUrl = newUrl.split("lyl")[newNumber + 1]
+      await page.goto(newUrl)
+      const botAnswer = await page.$eval('body>.body-wrapper>.content-wrapper>.content>.main-content>.lemma-summary', el => el.innerText);
+      await this.reply(botAnswer);
+      await browser.close();
+      await this.finish("delAgain");
+      return;
+    } catch (error) {
+      await this.reply("可能是出BUG了,也可能是百度百科没有这个词条，还有可能是比较特殊的关键词，诶嘿😋");
+      await browser.close();
+      await this.finish("delAgain");
+    }
 
   }
 }
