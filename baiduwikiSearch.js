@@ -48,7 +48,7 @@ export class baidu extends plugin {
       e.reply(botAnswer);
       await browser.close();
       return;
-    } catch (e) {
+    } catch (error) {
 
     }
 
@@ -57,7 +57,7 @@ export class baidu extends plugin {
       e.reply(botAnswer);
       await browser.close();
       return;
-    } catch (e) {
+    } catch (error) {
 
     }
 
@@ -66,7 +66,7 @@ export class baidu extends plugin {
       e.reply(botAnswer);
       await browser.close();
       return;
-    } catch (e) {
+    } catch (error) {
 
     }
 
@@ -90,7 +90,7 @@ export class baidu extends plugin {
       await browser.close();
       return;
     } catch (error) {
-      logger.mark(error)
+    
     }
 
 
